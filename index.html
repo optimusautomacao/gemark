@@ -1,321 +1,432 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GEMARK - Registro e Proteção de Marcas</title>
+    <title>Gemark - Registro e Proteção de Marcas</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-blue': '#03268f',
+                        'brand-yellow': '#ffd700',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth; /* Adicionado para rolagem suave global */
+        /* Small custom styles */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
         }
-        .hero-bg {
-            /* Imagem de fundo da seção de introdução atualizada */
-            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://i.postimg.cc/mkDTspPs/cyber-security-concept-digital-art.jpg');
-            background-size: cover;
-            background-position: center;
+        .accordion-item.active .accordion-content {
+            max-height: 500px; /* Adjust as needed */
         }
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        .accordion-item.active .accordion-arrow {
+            transform: rotate(180deg);
         }
-        .floating-whatsapp {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #25D366;
-            color: white;
-            padding: 15px;
-            border-radius: 50%;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            z-index: 1000;
-            transition: transform 0.3s ease;
+        /* Custom gradient effects for sections */
+        .section-gradient-dark {
+            background-image: linear-gradient(to bottom right, #000000, #1a1a1a);
         }
-        .floating-whatsapp:hover {
-            transform: scale(1.1);
-        }
-        /* Adiciona um fallback para a imagem do logo caso ela não carregue */
-        .logo-img {
-            content: url('https://i.postimg.cc/nLg47Ntd/OFICIAL.png');
-        }
-        .logo-img[onerror] {
-            content: url('https://placehold.co/120x40/000000/FFFFFF?text=GEMARK'); /* Placeholder em caso de erro */
+        .section-gradient-light {
+            background-image: linear-gradient(to bottom right, #ffffff, #f0f0f0);
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-black text-white font-sans">
 
-    <!-- Cabeçalho -->
-    <header class="bg-[#000000] shadow-md sticky top-0 z-50">
+    <!-- =========== Header =========== -->
+    <header class="bg-black/80 backdrop-blur-sm sticky top-0 z-50">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <!-- Logotipo com fallback -->
-            <img src="https://i.postimg.cc/nLg47Ntd/OFICIAL.png" alt="Logotipo GEMARK" class="h-10 logo-img" onerror="this.onerror=null; this.src='https://placehold.co/120x40/000000/FFFFFF?text=GEMARK';">
-            <nav class="hidden md:flex space-x-6 items-center">
-                <a href="#inicio" class="text-white hover:text-yellow-500 transition duration-300">Início</a>
-                <a href="#servicos" class="text-white hover:text-yellow-500 transition duration-300">Serviços</a>
-                <a href="#como-funciona" class="text-white hover:text-yellow-500 transition duration-300">Como Funciona</a>
-                <a href="#contato" class="text-white hover:text-yellow-500 transition duration-300">Contato</a>
-                <a href="https://wa.me/553799625652" target="_blank" class="bg-[#ffffff] hover:bg-gray-200 text-[#000000] font-semibold px-4 py-2 rounded-lg transition duration-300">Fale com um Especialista</a>
+            <!-- Logo -->
+            <a href="#" class="flex items-center space-x-2">
+                <img src="https://i.postimg.cc/hv034jv7/Oficial01-removebg-preview.png" alt="[Image of Gemark Logo]" class="h-12 w-auto rounded-lg">
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-6">
+                <a href="#inicio" class="hover:text-brand-yellow transition-colors">Início</a>
+                <a href="#por-que-registrar" class="hover:text-brand-yellow transition-colors">Por que Registrar?</a>
+                <a href="#servicos" class="hover:text-brand-yellow transition-colors">Serviços</a>
+                <a href="#como-funciona" class="hover:text-brand-yellow transition-colors">Como Funciona</a>
+                <a href="#duvidas" class="hover:text-brand-yellow transition-colors">Dúvidas</a>
+                <a href="#contato" class="hover:text-brand-yellow transition-colors">Contato</a>
             </nav>
-            <!-- Botão do Menu Mobile -->
-            <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-white focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                </button>
-            </div>
+
+            <!-- CTA Button -->
+            <a href="#contato" class="hidden md:inline-block bg-brand-blue hover:bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg transition-colors">
+                Fale conosco
+            </a>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
         </div>
-        <!-- Menu Mobile -->
-        <div id="mobile-menu" class="md:hidden hidden bg-[#000000] shadow-lg">
-            <a href="#inicio" class="block px-6 py-3 text-white hover:bg-yellow-500 hover:text-black transition duration-300">Início</a>
-            <a href="#servicos" class="block px-6 py-3 text-white hover:bg-yellow-500 hover:text-black transition duration-300">Serviços</a>
-            <a href="#como-funciona" class="block px-6 py-3 text-white hover:bg-yellow-500 hover:text-black transition duration-300">Como Funciona</a>
-            <a href="#contato" class="block px-6 py-3 text-white hover:bg-yellow-500 hover:text-black transition duration-300">Contato</a>
-            <a href="https://wa.me/553799625652" target="_blank" class="block px-6 py-3 bg-[#ffffff] text-[#000000] text-center font-semibold rounded-b-lg hover:bg-gray-200 transition duration-300">Fale com um Especialista</a>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black">
+            <nav class="px-6 pt-2 pb-4 flex flex-col space-y-3">
+                <a href="#inicio" class="hover:text-brand-yellow transition-colors">Início</a>
+                <a href="#por-que-registrar" class="hover:text-brand-yellow transition-colors">Por que Registrar?</a>
+                <a href="#servicos" class="hover:text-brand-yellow transition-colors">Serviços</a>
+                <a href="#como-funciona" class="hover:text-brand-yellow transition-colors">Como Funciona</a>
+                <a href="#duvidas" class="hover:text-brand-yellow transition-colors">Dúvidas</a>
+                <a href="#contato" class="hover:text-brand-yellow transition-colors">Contato</a>
+                <a href="#contato" class="mt-2 bg-brand-blue hover:bg-blue-600 text-white text-center font-semibold px-5 py-2 rounded-lg transition-colors">
+                    Fale conosco
+                </a>
+            </nav>
         </div>
     </header>
 
-    <!-- Seção de Início (Hero) -->
-    <section id="inicio" class="hero-bg text-white py-20 md:py-32">
-        <div class="container mx-auto px-6 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">GEMARK: Nosso Negócio é PROTEGER O SEU</h1>
-            <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">Especialistas em registro e proteção de marcas, garantindo a exclusividade e o valor do seu negócio em todo o Brasil.</p>
-            <a href="https://wa.me/553799625652" target="_blank" class="bg-[#03268f] hover:bg-blue-800 text-white font-semibold px-8 py-3 rounded-lg text-lg transition duration-300">Quero registrar minha marca</a>
-        </div>
-    </section>
+    <!-- =========== Main Content =========== -->
+    <main>
 
-    <!-- Seção Por que Registrar -->
-    <section class="py-16 bg-white">
+        <!-- Hero Section -->
+        <section id="inicio" class="relative overflow-hidden">
+            <!-- Image for background -->
+            <img src="https://i.postimg.cc/8kBp9gD2/2713.jpg" alt="[Image of abstrac background]" class="absolute inset-0 w-full h-full object-cover opacity-75 z-0">
+            
+            <!-- Dark overlay -->
+            <div class="absolute inset-0 bg-black opacity-75 z-10"></div>
+            
+            <!-- Content wrapper with padding and z-index -->
+            <div class="relative z-20 py-24 md:py-32">
+                <div class="container mx-auto px-6 text-center">
+                    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
+                        <span class="text-white">GEMARK:</span> nosso negócio é <br class="hidden md:block"> proteger o seu!
+                    </h1>
+                    <p class="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-gray-200">
+                        Especialistas em registro e proteção de marcas, garantindo a exclusividade e o valor do seu negócio em todo o Brasil.
+                    </p>
+                    <a href="#contato" class="mt-10 inline-block bg-brand-yellow text-black font-bold text-lg px-8 py-4 rounded-lg shadow-lg hover:bg-yellow-300 transition-transform transform hover:scale-105">
+                        Quero garantir a minha proteção
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits Section -->
+        <section id="por-que-registrar" class="py-20 bg-black section-gradient-dark">
+            <div class="container mx-auto px-6">
+                <!-- Grid container for 2 columns -->
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <!-- Left Column: Title and Cards -->
+                    <div class="flex flex-col justify-center items-center md:items-start text-center md:text-left">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-8">Por Que Registrar Sua Marca?</h2>
+                        <div class="space-y-6 w-full"> <!-- Cards are stacked vertically -->
+                            <!-- Benefício 1 -->
+                            <div class="bg-gray-900 p-8 rounded-xl shadow-lg border border-gray-700">
+                                <div class="bg-brand-blue inline-flex p-4 rounded-full mb-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 2L4 5v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V5l-8-3z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-bold mb-2 text-brand-yellow">Exclusividade Nacional</h3>
+                                <p class="text-gray-300">Sua marca protegida em todo o território brasileiro, impedindo o uso por terceiros.</p>
+                            </div>
+                            <!-- Benefício 2 -->
+                            <div class="bg-gray-900 p-8 rounded-xl shadow-lg border border-gray-700">
+                                <div class="bg-brand-blue inline-flex p-4 rounded-full mb-4">
+                                   <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-bold mb-2 text-brand-yellow">Proteção Contra Cópia</h3>
+                                <p class="text-gray-300">Segurança jurídica para combater a concorrência desleal e o uso indevido.</p>
+                            </div>
+                            <!-- Benefício 3 -->
+                            <div class="bg-gray-900 p-8 rounded-xl shadow-lg border border-gray-700">
+                                <div class="bg-brand-blue inline-flex p-4 rounded-full mb-4">
+                                   <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-bold mb-2 text-brand-yellow">Valoriza seu Negócio</h3>
+                                <p class="text-gray-300">Uma marca registrada é um ativo valioso que pode ser licenciado ou franqueado.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column: Image -->
+                    <div class="flex justify-center items-center h-full">
+                        <img src="https://i.postimg.cc/mrpnhy9N/Chat-GPT-Image-26-de-mai-de-2025-17-51-22-removebg-preview.png" alt="[Image of brand registration illustration]" class="w-full h-full object-contain rounded-lg shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="servicos" class="py-20 bg-white section-gradient-light">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-black">Nossos Serviços Especializados</h2>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Service 1: Registro de Marca -->
+                    <div class="bg-black p-8 rounded-xl shadow-lg flex flex-col">
+                        <div class="bg-brand-blue inline-flex p-4 rounded-full mb-4 self-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-brand-yellow text-center">Registro de Marca</h3>
+                        <p class="text-gray-300 text-center flex-grow">Análise de viabilidade, preparação e depósito do pedido de registro no INPI.</p>
+                        <a href="https://wa.me/5537999625652" target="_blank" class="mt-6 block bg-brand-yellow text-black font-semibold text-center py-2 px-4 rounded-lg hover:bg-yellow-300 transition-colors">Saiba Mais</a>
+                    </div>
+                    <!-- Service 2: Acompanhamento -->
+                    <div class="bg-black p-8 rounded-xl shadow-lg flex flex-col">
+                        <div class="bg-brand-blue inline-flex p-4 rounded-full mb-4 self-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-brand-yellow text-center">Acompanhamento de Processos</h3>
+                        <p class="text-gray-300 text-center flex-grow">Monitoramento semanal do seu processo no INPI e comunicação de todas as etapas.</p>
+                        <a href="https://wa.me/5537999625652" target="_blank" class="mt-6 block bg-brand-yellow text-black font-semibold text-center py-2 px-4 rounded-lg hover:bg-yellow-300 transition-colors">Saiba Mais</a>
+                    </div>
+                    <!-- Service 3: Notificações e Defesas -->
+                    <div class="bg-black p-8 rounded-xl shadow-lg flex flex-col">
+                        <div class="bg-brand-blue inline-flex p-4 rounded-full mb-4 self-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-brand-yellow text-center">Notificações e Defesas</h3>
+                        <p class="text-gray-300 text-center flex-grow">Elaboração de oposições, manifestações, recursos e notificações extrajudiciais.</p>
+                        <a href="https://wa.me/5537999625652" target="_blank" class="mt-6 block bg-brand-yellow text-black font-semibold text-center py-2 px-4 rounded-lg hover:bg-yellow-300 transition-colors">Saiba Mais</a>
+                    </div>
+                    <!-- Service 4: Consultoria -->
+                    <div class="bg-black p-8 rounded-xl shadow-lg flex flex-col">
+                        <div class="bg-brand-blue inline-flex p-4 rounded-full mb-4 self-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-brand-yellow text-center">Consultoria Estratégica</h3>
+                        <p class="text-gray-300 text-center flex-grow">Orientação completa sobre a melhor forma de proteger seus ativos intelectuais.</p>
+                        <a href="https://wa.me/5537999625652" target="_blank" class="mt-6 block bg-brand-yellow text-black font-semibold text-center py-2 px-4 rounded-lg hover:bg-yellow-300 transition-colors">Saiba Mais</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="como-funciona" class="py-20 bg-black section-gradient-dark">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold">Como funciona o registro de marca?</h2>
+                </div>
+                <div class="relative">
+                    <!-- The connecting line -->
+                    <div class="hidden md:block absolute top-5 left-0 h-1 w-full bg-brand-blue"></div>
+
+                    <div class="grid md:grid-cols-4 gap-12 relative">
+                        <!-- Etapa 1 -->
+                        <div class="text-center md:text-left">
+                            <div class="relative">
+                                <div class="mx-auto md:mx-0 w-12 h-12 flex items-center justify-center bg-brand-yellow text-black text-2xl font-bold rounded-full z-10 relative">1</div>
+                            </div>
+                            <h3 class="text-xl font-bold mt-4 mb-2">Consulta de Viabilidade</h3>
+                            <p class="text-gray-300">Analisamos gratuitamente se sua marca pode ser registrada.</p>
+                        </div>
+                        <!-- Etapa 2 -->
+                        <div class="text-center md:text-left">
+                           <div class="relative">
+                                <div class="mx-auto md:mx-0 w-12 h-12 flex items-center justify-center bg-brand-yellow text-black text-2xl font-bold rounded-full z-10 relative">2</div>
+                            </div>
+                            <h3 class="text-xl font-bold mt-4 mb-2">Depósito do Pedido</h3>
+                            <p class="text-gray-300">Preparamos e protocolamos seu pedido junto ao INPI.</p>
+                        </div>
+                        <!-- Etapa 3 -->
+                        <div class="text-center md:text-left">
+                            <div class="relative">
+                                <div class="mx-auto md:mx-0 w-12 h-12 flex items-center justify-center bg-brand-yellow text-black text-2xl font-bold rounded-full z-10 relative">3</div>
+                            </div>
+                            <h3 class="text-xl font-bold mt-4 mb-2">Acompanhamento Semanal</h3>
+                            <p class="text-gray-300">Monitoramos seu processo e informamos cada atualização.</p>
+                        </div>
+                        <!-- Etapa 4 -->
+                        <div class="text-center md:text-left">
+                           <div class="relative">
+                                <div class="mx-auto md:mx-0 w-12 h-12 flex items-center justify-center bg-brand-yellow text-black text-2xl font-bold rounded-full z-10 relative">4</div>
+                            </div>
+                            <h3 class="text-xl font-bold mt-4 mb-2">Marca Registrada!</h3>
+                            <p class="text-gray-300">Com o deferimento, sua marca está protegida por 10 anos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="duvidas" class="py-20 bg-white section-gradient-light">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-black">Dúvidas Frequentes</h2>
+                </div>
+                <div class="max-w-3xl mx-auto space-y-4" id="faq-accordion">
+                    <!-- FAQ 1 -->
+                    <div class="accordion-item bg-black border border-gray-700 rounded-lg">
+                        <button class="accordion-header w-full flex justify-between items-center text-left text-lg font-semibold p-5">
+                            <span>Posso registrar a marca sem ter empresa aberta (CNPJ)?</span>
+                             <svg class="accordion-arrow w-6 h-6 transition-transform text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="accordion-content">
+                            <p class="p-5 pt-0 text-gray-300">Sim! É possível realizar o registro como <strong>pessoa física</strong>, desde que você comprove a atividade vinculada à marca (como profissional liberal, microempreendedor ou prestador de serviço). Basta anexar documentos como diploma, alvará, site, contrato de prestação ou certificado profissional. A diferença entre registrar nome fantasia na Junta Comercial e registrar marca no INPI é que este garante exclusividade nacional do uso da marca, e tem foco na distinção dos produtos ou serviços no mercado.</p>
+                        </div>
+                    </div>
+                    <!-- FAQ 2 -->
+                    <div class="accordion-item bg-black border border-gray-700 rounded-lg">
+                        <button class="accordion-header w-full flex justify-between items-center text-left text-lg font-semibold p-5">
+                            <span>Quanto tempo demora para sair o registro de marca?</span>
+                            <svg class="accordion-arrow w-6 h-6 transition-transform text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="accordion-content">
+                            <p class="p-5 pt-0 text-gray-300">O processo leva em média de <strong>12 a 24 meses</strong>, podendo variar conforme a existência de oposições, exigências ou etapas adicionais. Primeiro ocorre o exame formal (verificação de documentos), em seguida a publicação na Revista da Propriedade Industrial (RPI), e depois o exame de mérito. Durante esse período, há janelas para exigências e oposição de terceiros.</p>
+                        </div>
+                    </div>
+                    <!-- FAQ 3 -->
+                    <div class="accordion-item bg-black border border-gray-700 rounded-lg">
+                        <button class="accordion-header w-full flex justify-between items-center text-left text-lg font-semibold p-5">
+                            <span>Quais documentos preciso para registrar uma marca?</span>
+                            <svg class="accordion-arrow w-6 h-6 transition-transform text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="p-5 pt-0 text-gray-300">
+                                <p>De forma geral, você precisará de:</p>
+                                <ol class="list-decimal list-inside mt-2 space-y-1">
+                                    <li><strong>Identificação do titular</strong> (CPF + RG para pessoa física ou CNPJ + contrato social/CCMEI para pessoa jurídica/MEI);</li>
+                                    <li><strong>Comprovação da atividade</strong> (alguma prova de que você exerce legalmente o serviço ou produto associado à marca);</li>
+                                    <li><strong>Comprovante de pagamento da GRU</strong>, referente à taxa de pedido;</li>
+                                    <li><strong>Imagem da marca</strong>, caso seja figurativa ou mista;</li>
+                                    <li><strong>Procuração</strong>, se o pedido for feito por representante como advogado ou agente.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- =========== Footer =========== -->
+    <footer id="contato" class="bg-black border-t border-gray-700 py-12 section-gradient-dark">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-2 text-gray-700">Por que Registrar sua Marca?</h2>
-            <p class="text-center text-gray-600 mb-12 max-w-xl mx-auto">Garanta a segurança e a exclusividade do seu maior patrimônio.</p>
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-[#000000] p-6 rounded-lg shadow-lg text-center text-white">
-                    <i class="fas fa-shield-alt fa-3x text-yellow-500 mb-4"></i>
-                    <h3 class="text-xl font-semibold mb-2">Exclusividade Nacional</h3>
-                    <p>Sua marca protegida em todo o território brasileiro, impedindo o uso por terceiros.</p>
-                </div>
-                <div class="bg-[#000000] p-6 rounded-lg shadow-lg text-center text-white">
-                    <i class="fas fa-lock fa-3x text-yellow-500 mb-4"></i>
-                    <h3 class="text-xl font-semibold mb-2">Proteção Contra Cópia</h3>
-                    <p>Segurança jurídica para combater a concorrência desleal e o uso indevido.</p>
-                </div>
-                <div class="bg-[#000000] p-6 rounded-lg shadow-lg text-center text-white">
-                    <i class="fas fa-arrow-trend-up fa-3x text-yellow-500 mb-4"></i>
-                    <h3 class="text-xl font-semibold mb-2">Agrega Valor ao Negócio</h3>
-                    <p>Uma marca registrada é um ativo valioso que pode ser licenciado ou franqueado.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção de Serviços -->
-    <section id="servicos" class="py-16 bg-[#000000]">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-2 text-white">Nossos Serviços Especializados</h2>
-            <p class="text-center text-gray-300 mb-12 max-w-xl mx-auto">Soluções completas para a proteção da sua identidade no mercado.</p>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-lg service-card transition duration-300 text-gray-700">
-                    <i class="fas fa-file-signature fa-2x text-yellow-500 mb-4"></i>
-                    <h3 class="text-xl font-semibold mb-2">Registro de Marca</h3>
-                    <p class="mb-4">Análise de viabilidade, preparação e depósito do pedido de registro no INPI.</p>
-                    <a href="https://wa.me/553799625652" target="_blank" class="text-yellow-500 hover:text-yellow-600 font-semibold">Saiba Mais <i class="fas fa-arrow-right ml-1"></i></a>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-lg service-card transition duration-300 text-gray-700">
-                    <i class="fas fa-search fa-2x text-yellow-500 mb-4"></i>
-                    <h3 class="text-xl font-semibold mb-2">Acompanhamento de Processos</h3>
-                    <p class="mb-4">Monitoramento semanal do seu processo no INPI e comunicação de todas as etapas.</p>
-                    <a href="https://wa.me/553799625652" target="_blank" class="text-yellow-500 hover:text-yellow-600 font-semibold">Saiba Mais <i class="fas fa-arrow-right ml-1"></i></a>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-lg service-card transition duration-300 text-gray-700">
-                    <i class="fas fa-gavel fa-2x text-yellow-500 mb-4"></i>
-                    <h3 class="text-xl font-semibold mb-2">Notificações e Defesas</h3>
-                    <p class="mb-4">Elaboração de oposições, manifestações, recursos e notificações extrajudiciais.</p>
-                    <a href="https://wa.me/553799625652" target="_blank" class="text-yellow-500 hover:text-yellow-600 font-semibold">Saiba Mais <i class="fas fa-arrow-right ml-1"></i></a>
-                </div>
-                 <div class="bg-white p-6 rounded-lg shadow-lg service-card transition duration-300 md:col-span-2 lg:col-span-1 text-gray-700 lg:col-start-2">
-                    <i class="fas fa-lightbulb fa-2x text-yellow-500 mb-4"></i>
-                    <h3 class="text-xl font-semibold mb-2">Consultoria Estratégica</h3>
-                    <p class="mb-4">Orientação completa sobre a melhor forma de proteger seus ativos intelectuais.</p>
-                    <a href="https://wa.me/553799625652" target="_blank" class="text-yellow-500 hover:text-yellow-600 font-semibold">Saiba Mais <i class="fas fa-arrow-right ml-1"></i></a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção Como Funciona -->
-    <section id="como-funciona" class="py-16 bg-[#03268f] text-white">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-12">Como Funciona o Registro da Sua Marca?</h2>
-            <div class="grid md:grid-cols-4 gap-8 text-center">
+                <!-- About -->
                 <div>
-                    <div class="bg-white text-[#03268f] rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">1</div>
-                    <h3 class="text-xl font-semibold mb-2">Consulta de Viabilidade</h3>
-                    <p>Analisamos gratuitamente se sua marca pode ser registrada.</p>
+                    <img src="https://i.postimg.cc/hv034jv7/Oficial01-removebg-preview.png" alt="[Image of Gemark Logo]" class="h-16 w-auto mb-4 rounded-lg">
+                    <p class="text-gray-400">Protegendo o que é seu. Especialistas em registro de marcas com agilidade e segurança.</p>
+                    <h5 class="text-lg font-semibold mt-6 mb-4">Acompanhe nossas redes sociais</h5>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="https://www.instagram.com/gemarkbr/" target="_blank" class="text-gray-400 hover:text-brand-yellow transition-colors">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.058 1.644-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"/></svg>
+                        </a>
+                        <a href="https://www.facebook.com/share/16r46LmHsX/?mibextid=wwXIfr" target="_blank" class="text-gray-400 hover:text-brand-yellow transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
+                        </a>
+                        <a href="https://wa.me/5537999625652" target="_blank" class="text-gray-400 hover:text-brand-yellow transition-colors">
+                            <img src="https://i.postimg.cc/RFq8GBgr/logo-wpp-original.png" alt="[Image of WhatsApp Logo]" class="h-6 w-6 rounded-full" />
+                        </a>
+                    </div>
                 </div>
+                <!-- Contact Info -->
                 <div>
-                    <div class="bg-white text-[#03268f] rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">2</div>
-                    <h3 class="text-xl font-semibold mb-2">Depósito do Pedido</h3>
-                    <p>Preparamos e protocolamos seu pedido junto ao INPI.</p>
+                    <h4 class="text-xl font-bold mb-4">Contato</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start">
+                            <span class="mt-1 mr-3 text-brand-yellow">&#10140;</span> 
+                            <span>FLORIANO PEIXOTO, 40 - CENTRO</span>
+                        </li>
+                        <li class="flex items-start">
+                             <span class="mt-1 mr-3 text-brand-yellow">&#10140;</span> 
+                            <a href="tel:+5537999625652" class="hover:text-white">+55 37 99962-5652</a>
+                        </li>
+                        <li class="flex items-start">
+                           <span class="mt-1 mr-3 text-brand-yellow">&#10140;</span> 
+                           <a href="mailto:registrodemarcasgemark@gmail.com" class="hover:text-white">registrodemarcasgemark@gmail.com</a>
+                        </li>
+                    </ul>
                 </div>
+                <!-- Quick Links -->
                 <div>
-                    <div class="bg-white text-[#03268f] rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">3</div>
-                    <h3 class="text-xl font-semibold mb-2">Acompanhamento Semanal</h3>
-                    <p>Monitoramos seu processo e informamos cada atualização.</p>
+                    <h4 class="text-xl font-bold mb-4">Links Rápidos</h4>
+                     <ul class="space-y-2 text-gray-400">
+                        <li><a href="#inicio" class="hover:text-white">Início</a></li>
+                        <li><a href="#por-que-registrar" class="hover:text-white">Por que Registrar?</a></li>
+                        <li><a href="#servicos" class="hover:text-white">Serviços</a></li>
+                        <li><a href="#como-funciona" class="hover:text-white">Como Funciona</a></li>
+                        <li><a href="#duvidas" class="hover:text-white">Dúvidas</a></li>
+                    </ul>
                 </div>
-                <div>
-                    <div class="bg-white text-[#03268f] rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">4</div>
-                    <h3 class="text-xl font-semibold mb-2">Marca Registrada!</h3>
-                    <p>Com o deferimento, sua marca está protegida por 10 anos.</p>
-                </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Seção de Contato -->
-    <section id="contato" class="py-16 bg-gray-700 text-white">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-12">Entre em Contato</h2>
-
-            <!-- Botão e texto para abrir o formulário -->
-            <div id="contact-prompt" class="text-center">
-                <p class="text-lg mb-4">Preencha o formulário para mais informações <i class="fas fa-arrow-down ml-1"></i></p>
-                <button id="showFormBtn" class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3 rounded-lg text-lg transition duration-300">
-                    Abrir Formulário de Contato
-                </button>
+            <div class="text-center text-gray-500 mt-10 pt-8 border-t border-gray-700">
+                <p>&copy; 2025 GEMARK. Todos os direitos reservados.</p>
             </div>
-
-            <!-- Container do Formulário (inicialmente oculto) -->
-            <div id="contactFormContainer" class="max-w-3xl mx-auto bg-white text-gray-700 p-8 rounded-lg shadow-xl hidden">
-                <form action="#" method="POST" id="contactForm">
-                    <div class="grid md:grid-cols-2 gap-6 mb-6">
-                        <div>
-                            <label for="nome" class="block mb-2 font-semibold">Nome Completo</label>
-                            <input type="text" id="nome" name="nome" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent" required>
-                        </div>
-                        <div>
-                            <label for="email" class="block mb-2 font-semibold">E-mail</label>
-                            <input type="email" id="email" name="email" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent" required>
-                        </div>
-                    </div>
-                    <div class="mb-6">
-                        <label for="telefone" class="block mb-2 font-semibold">Telefone (com DDD)</label>
-                        <input type="tel" id="telefone" name="telefone" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent" required>
-                    </div>
-                    <div class="mb-6">
-                        <label for="assunto" class="block mb-2 font-semibold">Assunto</label>
-                        <input type="text" id="assunto" name="assunto" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
-                    </div>
-                    <div class="mb-6">
-                        <label for="mensagem" class="block mb-2 font-semibold">Sua Mensagem</label>
-                        <textarea id="mensagem" name="mensagem" rows="5" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent" required></textarea>
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-8 py-3 rounded-lg text-lg transition duration-300">Enviar Mensagem</button>
-                    </div>
-                </form>
-                <div id="form-feedback" class="mt-4 text-center"></div>
-            </div>
-
-             <div class="text-center mt-12">
-                <p class="text-lg mb-2">Ou fale conosco diretamente:</p>
-                <p class="text-xl font-semibold mb-1"><i class="fas fa-phone mr-2"></i> (37) 99962-5652</p>
-                <p class="text-xl font-semibold"><i class="fas fa-envelope mr-2"></i> registrodemarcasgemark@gmail.com</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Rodapé -->
-    <footer class="bg-gray-800 text-gray-300 py-12">
-        <div class="container mx-auto px-6 text-center">
-            <img src="https://i.postimg.cc/nLg47Ntd/OFICIAL.png" alt="Logotipo GEMARK" class="h-10 mx-auto mb-6 logo-img" onerror="this.onerror=null; this.src='https://placehold.co/120x40/FFFFFF/000000?text=GEMARK';">
-            <p class="mb-2">GEMARK - Registro e Proteção de Marcas</p>
-            <p class="mb-2">Rua Exemplo, 123 - Cidade, Estado - CEP 00000-000</p>
-            <p class="mb-6">CNPJ: XX.XXX.XXX/0001-XX</p>
-            <div class="flex justify-center space-x-6 mb-6">
-                <a href="#" class="text-gray-400 hover:text-yellow-500 transition duration-300" aria-label="Facebook"><i class="fab fa-facebook-f fa-lg"></i></a>
-                <a href="#" class="text-gray-400 hover:text-yellow-500 transition duration-300" aria-label="Instagram"><i class="fab fa-instagram fa-lg"></i></a>
-                <a href="#" class="text-gray-400 hover:text-yellow-500 transition duration-300" aria-label="LinkedIn"><i class="fab fa-linkedin-in fa-lg"></i></a>
-            </div>
-            <p class="text-sm">&copy; <span id="currentYear"></span> GEMARK. Todos os direitos reservados.</p>
-            <p class="text-xs mt-1">Desenvolvido com <i class="fas fa-heart text-yellow-500"></i></p>
         </div>
     </footer>
-
-    <!-- Botão Flutuante do WhatsApp -->
-    <a href="https://wa.me/553799625652?text=Olá!%20Gostaria%20de%20mais%20informações%20sobre%20o%20registro%20de%20marcas."
-       target="_blank"
-       class="floating-whatsapp"
-       aria-label="Fale conosco pelo WhatsApp">
-        <i class="fab fa-whatsapp fa-2x"></i>
+    
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/5537999625652" target="_blank" class="fixed bottom-5 right-5 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg z-50 flex items-center justify-center transition-transform hover:scale-110">
+        <img src="https://i.postimg.cc/RFq8GBgr/logo-wpp-original.png" alt="[Image of WhatsApp Logo]" class="h-8 w-8 rounded-full" />
     </a>
 
+
     <script>
-        // Script para menu mobile
+        // Mobile Menu Toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
-        if (mobileMenuButton && mobileMenu) {
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-        }
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
 
-        // Script para ano atual no rodapé
-        const currentYearElement = document.getElementById('currentYear');
-        if (currentYearElement) {
-            currentYearElement.textContent = new Date().getFullYear();
-        }
-
-        // Smooth scroll para links âncora
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                    }
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
+        // Close mobile menu when a link is clicked
+        const mobileNavLinks = mobileMenu.querySelectorAll('a');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
             });
         });
 
-        // Script para mostrar o formulário de contato
-        const showFormBtn = document.getElementById('showFormBtn');
-        const contactFormContainer = document.getElementById('contactFormContainer');
-        const contactPrompt = document.getElementById('contact-prompt');
-
-        if (showFormBtn && contactFormContainer && contactPrompt) {
-            showFormBtn.addEventListener('click', () => {
-                contactFormContainer.classList.remove('hidden');
-                contactPrompt.classList.add('hidden'); // Opcional: esconde o botão e o texto após clique
+        // FAQ Accordion
+        const accordionItems = document.querySelectorAll('.accordion-item');
+        accordionItems.forEach(item => {
+            const header = item.querySelector('.accordion-header');
+            header.addEventListener('click', () => {
+                // Close other items
+                accordionItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                // Toggle current item
+                item.classList.toggle('active');
             });
-        }
+        });
 
-        // Simulação de envio de formulário
-        const contactForm = document.getElementById('contactForm');
-        const formFeedback = document.getElementById('form-feedback');
-
-        if (contactForm && formFeedback) {
-            contactForm.addEventListener('submit', function(event) {
-                event.preventDefault(); 
-
-                formFeedback.textContent = 'Enviando mensagem...';
-                formFeedback.className = 'mt-4 text-center text-blue-600';
-
-                setTimeout(() => {
-                    formFeedback.textContent = 'Mensagem enviada com sucesso! Entraremos em contato em breve.';
-                    formFeedback.className = 'mt-4 text-center text-green-600';
-                    contactForm.reset();
-                }, 2000);
-            });
-        }
     </script>
-
 </body>
 </html>
